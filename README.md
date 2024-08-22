@@ -1,8 +1,21 @@
-**NearDrop** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
+# NearDrop++
+**NearDrop++** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
+
+The app lives in your menu bar and saves files to your downloads folder. It's that simple, really.
+
+It is based on [NearDrop](https://github.com/grishka/NearDrop) by [grishka](https://github.com/grishka).
 
 [Protocol documentation](/PROTOCOL.md) is available separately.
 
-The app lives in your menu bar and saves files to your downloads folder. It's that simple, really.
+## Why ++ ?
+It contains many enhancements built by other community members that are not accepted by the original creator.
+
+Grishka, the original creator of this project, made a distinction between *open-source* and *community-driven*, as in, the community around an open-source project does not necessarily get to decide how it develops and what features it has (https://github.com/grishka/NearDrop/pull/127#issuecomment-2029534303). Based on this, grishka has rejected many contributions that added more features to the project.
+
+This is an importent distinction, and I totally agree with grishka. I also fully respect the decision of limiting what PRs get to be accepted. On the other hand, it's unfortunate to see community member's effort of improving the project not being accepted and scattered across multiple repos/PRs. Hence, I created this fork to combine some of the enhancements built by other community members into one.
+
+### List of Enhancements
+*  **Text, phone number and URL sharing** by [d4rk-lucif3r](https://github.com/d4rk-lucif3r)'s [repo](https://github.com/d4rk-lucif3r/NearDrop)
 
 ## Limitations
 
@@ -17,13 +30,25 @@ If you want the app to start on boot, [follow these steps to add NearDrop as a l
 
 #### Installation with Homebrew
 
+This is for original NearDrop only.
+
 ```
 brew install --no-quarantine grishka/grishka/neardrop
 ```
 
 ## Contributing
 
-Pull requests that change the readme will not be accepted.
+You are welcome to submit your own pull reqests or suggest any forks/PRs.
+
+But, please note:
+
+* Try to follow common patterns.
+* Always document your PR.
+* PR that only make minor changes to readme will not be accepted.
+
+Also, by contributing to this project, you agree the following statement:
+> I dedicate any and all copyright interest in this software to the public domain. I make this dedication for the benefit of the public at large and to the detriment of my heirs and successors. I intend this dedication to be an overt act of relinquishment in perpetuity of all present and future rights to this software under copyright law.
+
 
 ## FAQ
 
