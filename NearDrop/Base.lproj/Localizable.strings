@@ -40,10 +40,10 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visible to everyone";
 
-"About" = "NearDrop Version";
+"About" = "About NearDrop";
 
-"NotificationsVersion.Title" = "NearDrop Current Version";
+"NotificationsVersion.Title" = "NearDrop v";
 
-"NotificationVersion.Error"="Can't find a version.";
+"NotificationVersion.Error"="unknown version";
 
 "OK" = "OK";

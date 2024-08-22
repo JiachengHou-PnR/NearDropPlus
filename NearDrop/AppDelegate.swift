@@ -14,12 +14,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	private var statusItem:NSStatusItem?
 	private var activeIncomingTransfers:[String:TransferInfo] = [:]
 
-	func pplicationDidFinishLaunching(_ aNotification: Notification) {
+	func applicationDidFinishLaunching(_ aNotification: Notification) {
 		let menu = NSMenu()
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
-        menu.addItem(withTitle: NSLocalizedString("About", value: "NearDrop Version", comment: ""), action: #selector(showVersionAlert), keyEquivalent: "")
+		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
+		menu.addItem(withTitle: NSLocalizedString("About", value: "About NearDrop", comment: "") + " " + appVersion
+								 , action: #selector(showAboutAlert), keyEquivalent: "")
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
@@ -50,29 +52,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		return true
 	}
 
-    func applicationWillTerminate(_ aNotification: Notification) {
+	func applicationWillTerminate(_ aNotification: Notification) {
 		UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-    }
-
-    func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
-        return true
-    }
+	}
+	
+	func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+		return true
+	}
     
-    @objc
-    func showVersionAlert() {
-        let alert = NSAlert()
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        alert.alertStyle = .informational
-        alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDrop Current Version", comment: "")
-        if let appVersion = appVersion {
-            alert.informativeText = appVersion
-        } else {
-            alert.informativeText = NSLocalizedString("NotificationVersion.Error", value: "Can't find a version.", comment: "")
-        }
-        
-        alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
-        alert.runModal()
-    }
+	@objc
+	func showAboutAlert() {
+		let alert = NSAlert()
+		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+		let titleText = Bundle.main.infoDictionary?["CFBundleName"] as? String
+		alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDrop v", comment: "")
+		
+		if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+			alert.messageText += appVersion
+		} else {
+			alert.messageText += NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
+		}
+		
+		alert.informativeText = "NearDrop by grishka\nNearDropPlusPlus by Jiacheng Hou\n"
+			
+		alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
+		alert.runModal()
+	}
 	
 	func showNotificationsDeniedAlert() {
 		let alert = NSAlert()
@@ -99,9 +104,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	}
 	
 	func obtainUserConsent(for transfer: TransferMetadata, from device: RemoteDeviceInfo) {
-		let notificationContent=UNMutableNotificationContent()
-		notificationContent.title="NearDrop"
-		notificationContent.subtitle=String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [transfer.pinCode!])
 		let fileStr:String
 		if let textTitle = transfer.textDescription {
 			fileStr = textTitle

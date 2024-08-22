@@ -40,3 +40,10 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "对所有人可见";
 
+"About" = "关于 NearDrop";
+
+"NotificationsVersion.Title" = "NearDrop 版本";
+
+"NotificationVersion.Error"="未知版本";
+
+"OK" = "OK";
