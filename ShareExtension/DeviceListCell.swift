@@ -12,15 +12,15 @@ class DeviceListCell:NSCollectionViewItem {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
-		let btn:NSButton=view as! NSButton
-		btn.isEnabled=true
+		let btn:NSButton = view as! NSButton
+		btn.isEnabled = true
 		btn.setButtonType(.momentaryPushIn)
-		btn.action=#selector(onClick)
-		btn.target=self
+		btn.action = #selector(onClick)
+		btn.target = self
     }
 	
-	@IBAction func onClick(_ sender:Any?){
-		guard let handler=clickHandler else {return}
+	@IBAction func onClick(_ sender:Any?) {
+		guard let handler = clickHandler else { return }
 		handler()
 	}
 }

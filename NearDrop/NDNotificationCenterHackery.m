@@ -35,8 +35,8 @@
 
 @implementation NDNotificationCenterHackery
 
-+ (void)removeDefaultAction:(UNMutableNotificationContent*) content{
-	content.hasDefaultAction=false;
++ (void)removeDefaultAction:(UNMutableNotificationContent*) content {
+	content.hasDefaultAction = false;
 }
 
 @end
