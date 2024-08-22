@@ -86,11 +86,11 @@ class OutboundNearbyConnection:NearbyConnection {
 			case .initial:
 				protocolError()
 			case .sentUkeyClientInit:
-				try processUkey2ServerInit(frame: try Securegcm_Ukey2Message(serializedData: frameData), raw: frameData)
+        try processUkey2ServerInit(frame: try Securegcm_Ukey2Message(serializedBytes: frameData), raw: frameData)
 			case .sentUkeyClientFinish:
-				try processConnectionResponse(frame: try Location_Nearby_Connections_OfflineFrame(serializedData: frameData))
+        try processConnectionResponse(frame: try Location_Nearby_Connections_OfflineFrame(serializedBytes: frameData))
 			default:
-				let smsg = try Securemessage_SecureMessage(serializedData: frameData)
+        let smsg = try Securemessage_SecureMessage(serializedBytes: frameData)
 				try decryptAndProcessReceivedSecureMessage(smsg)
 			}
 		} catch {
@@ -188,7 +188,7 @@ class OutboundNearbyConnection:NearbyConnection {
 			sendUkey2Alert(type: .badMessageType)
 			throw NearbyError.ukey2
 		}
-		let serverInit = try Securegcm_Ukey2ServerInit(serializedData: frame.messageData)
+    let serverInit = try Securegcm_Ukey2ServerInit(serializedBytes: frame.messageData)
 		guard serverInit.version == 1 else {
 			sendUkey2Alert(type: .badVersion)
 			throw NearbyError.ukey2
@@ -202,7 +202,7 @@ class OutboundNearbyConnection:NearbyConnection {
 			throw NearbyError.ukey2
 		}
 		
-		let serverKey = try Securemessage_GenericPublicKey(serializedData: serverInit.publicKey)
+    let serverKey = try Securemessage_GenericPublicKey(serializedBytes: serverInit.publicKey)
 		try finalizeKeyExchange(peerKey: serverKey)
 		sendFrameAsync(ukeyClientFinishMsgData!)
 		currentState = .sentUkeyClientFinish

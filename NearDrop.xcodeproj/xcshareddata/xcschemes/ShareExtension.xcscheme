@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1430"
+   LastUpgradeVersion = "1540"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -30,8 +30,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "69DA9A0D29E0BF5100A442DA"
-               BuildableName = "NearDrop.app"
-               BlueprintName = "NearDrop"
+               BuildableName = "NearDropPlusPlus.app"
+               BlueprintName = "NearDropPlusPlus"
                ReferencedContainer = "container:NearDrop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -60,8 +60,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69DA9A0D29E0BF5100A442DA"
-            BuildableName = "NearDrop.app"
-            BlueprintName = "NearDrop"
+            BuildableName = "NearDropPlusPlus.app"
+            BlueprintName = "NearDropPlusPlus"
             ReferencedContainer = "container:NearDrop.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -79,8 +79,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69DA9A0D29E0BF5100A442DA"
-            BuildableName = "NearDrop.app"
-            BlueprintName = "NearDrop"
+            BuildableName = "NearDropPlusPlus.app"
+            BlueprintName = "NearDropPlusPlus"
             ReferencedContainer = "container:NearDrop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
