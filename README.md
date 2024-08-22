@@ -1,8 +1,17 @@
-**NearDrop** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
+# NearDrop++
+**NearDrop++** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
+
+The app lives in your menu bar and saves files to your downloads folder. It's that simple, really.
+
+It is based on [NearDrop](https://github.com/grishka/NearDrop) by [grishka](https://github.com/grishka).
 
 [Protocol documentation](/PROTOCOL.md) is available separately.
 
-The app lives in your menu bar and saves files to your downloads folder. It's that simple, really.
+## Why ++ ?
+It contains many enhancements built by other community members that are not accepted by the original creator.
+
+### List of Enhancements
+*  **Text, phone number and URL sharing** by [d4rk-lucif3r](https://github.com/d4rk-lucif3r)'s [repo](https://github.com/d4rk-lucif3r/NearDrop)
 
 ## Limitations
 
@@ -17,13 +26,15 @@ If you want the app to start on boot, [follow these steps to add NearDrop as a l
 
 #### Installation with Homebrew
 
+This is for original NearDrop only.
+
 ```
 brew install --no-quarantine grishka/grishka/neardrop
 ```
 
 ## Contributing
 
-Pull requests that change the readme will not be accepted.
+Ypu are welcome to submit your own pull reqests or suggest forks/PRs of the original repo.
 
 ## FAQ
 
