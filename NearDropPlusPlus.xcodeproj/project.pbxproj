@@ -163,7 +163,7 @@
 		69D2C33029E789AF00EC7E30 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		69D2C33729E78DF400EC7E30 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = Base; path = Base.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		69D2C33929E78DFD00EC7E30 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		69DA9A0E29E0BF5100A442DA /* NearDrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearDrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69DA9A0E29E0BF5100A442DA /* NearDropPlusPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NearDropPlusPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69DA9A1129E0BF5100A442DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69DA9A1329E0BF5200A442DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		69DA9A1829E0BF5200A442DA /* NearDrop.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NearDrop.entitlements; sourceTree = "<group>"; };
@@ -275,7 +275,7 @@
 		69DA9A0F29E0BF5100A442DA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				69DA9A0E29E0BF5100A442DA /* NearDrop.app */,
+				69DA9A0E29E0BF5100A442DA /* NearDropPlusPlus.app */,
 				699DEBA12AB0573200115D22 /* ShareExtension.appex */,
 				69DCF4812AB70D0600CBE2CC /* libNearbyShare.dylib */,
 			);
@@ -356,9 +356,9 @@
 			productReference = 699DEBA12AB0573200115D22 /* ShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		69DA9A0D29E0BF5100A442DA /* NearDrop */ = {
+		69DA9A0D29E0BF5100A442DA /* NearDropPlusPlus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 69DA9A1B29E0BF5200A442DA /* Build configuration list for PBXNativeTarget "NearDrop" */;
+			buildConfigurationList = 69DA9A1B29E0BF5200A442DA /* Build configuration list for PBXNativeTarget "NearDropPlusPlus" */;
 			buildPhases = (
 				69DA9A0A29E0BF5100A442DA /* Sources */,
 				69DA9A0B29E0BF5100A442DA /* Frameworks */,
@@ -373,11 +373,11 @@
 				699DEBAD2AB0573200115D22 /* PBXTargetDependency */,
 				69DCF4972AB8BF7B00CBE2CC /* PBXTargetDependency */,
 			);
-			name = NearDrop;
+			name = NearDropPlusPlus;
 			packageProductDependencies = (
 			);
 			productName = NearDrop;
-			productReference = 69DA9A0E29E0BF5100A442DA /* NearDrop.app */;
+			productReference = 69DA9A0E29E0BF5100A442DA /* NearDropPlusPlus.app */;
 			productType = "com.apple.product-type.application";
 		};
 		69DCF4802AB70D0600CBE2CC /* NearbyShare */ = {
@@ -409,7 +409,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					699DEBA02AB0573200115D22 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -423,7 +423,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 69DA9A0929E0BF5100A442DA /* Build configuration list for PBXProject "NearDrop" */;
+			buildConfigurationList = 69DA9A0929E0BF5100A442DA /* Build configuration list for PBXProject "NearDropPlusPlus" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -455,7 +455,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				69DA9A0D29E0BF5100A442DA /* NearDrop */,
+				69DA9A0D29E0BF5100A442DA /* NearDropPlusPlus */,
 				699DEBA02AB0573200115D22 /* ShareExtension */,
 				69DCF4802AB70D0600CBE2CC /* NearbyShare */,
 			);
@@ -682,7 +682,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.6;
-				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDrop.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDropPlusPlus.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -710,7 +710,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.6;
-				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDrop.ShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDropPlusPlus.ShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -755,6 +755,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -816,6 +817,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -857,7 +859,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.6;
-				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDrop;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDropPlusPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NearDrop/NearDrop-Bridging-Header.h";
@@ -890,7 +892,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MARKETING_VERSION = 2.0.6;
-				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDrop;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jiahou.NearDropPlusPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "NearDrop/NearDrop-Bridging-Header.h";
@@ -942,7 +944,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		69DA9A0929E0BF5100A442DA /* Build configuration list for PBXProject "NearDrop" */ = {
+		69DA9A0929E0BF5100A442DA /* Build configuration list for PBXProject "NearDropPlusPlus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69DA9A1929E0BF5200A442DA /* Debug */,
@@ -951,7 +953,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		69DA9A1B29E0BF5200A442DA /* Build configuration list for PBXNativeTarget "NearDrop" */ = {
+		69DA9A1B29E0BF5200A442DA /* Build configuration list for PBXNativeTarget "NearDropPlusPlus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				69DA9A1C29E0BF5200A442DA /* Debug */,

@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Accept";
 
 /* No comment provided by engineer. */
@@ -40,3 +40,12 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visible to everyone";
 
+"About" = "About NearDrop";
+
+"NotificationsVersion.Title" = "NearDropPlusPlus v";
+
+"NotificationVersion.Error" = "unknown version";
+
+"NotificationsVersion.Credit" = "From NearDrop by grishka";
+
+"OK" = "OK";

@@ -14,14 +14,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	private var statusItem:NSStatusItem?
 	private var activeIncomingTransfers:[String:TransferInfo] = [:]
 
-  func applicationDidFinishLaunching(_ aNotification: Notification) {
+	func applicationDidFinishLaunching(_ aNotification: Notification) {
+		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
 		let menu = NSMenu()
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
+		menu.addItem(withTitle: NSLocalizedString("About", value: "About NearDrop", comment: "") + " " + appVersion
+								 , action: #selector(self.showAboutAlert), keyEquivalent: "")
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+		
 		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
+		statusItem?.button?.toolTip = Bundle.main.infoDictionary?["CFBundleName"] as? String
 		statusItem?.menu = menu
 		statusItem?.behavior = .removalAllowed
 		
@@ -49,13 +54,26 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		return true
 	}
 
-  func applicationWillTerminate(_ aNotification: Notification) {
+	func applicationWillTerminate(_ aNotification: Notification) {
 		UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-  }
+	}
+	
+	func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+		return true
+	}
+    
+	@objc
+	func showAboutAlert() {
+		let alert = NSAlert()
 
-  func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
-    return true
-  }
+		alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDropPlusPlus v", comment: "")
+		alert.messageText += Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
+
+		alert.informativeText = "\n" + NSLocalizedString("NotificationsVersion.Credit", value: "From NearDrop by grishka", comment: "")
+		
+		alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
+		alert.runModal()
+	}
 	
 	func showNotificationsDeniedAlert() {
 		let alert = NSAlert()
@@ -74,7 +92,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	
 	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		let transferID = response.notification.request.content.userInfo["transferID"]! as! String
-    NearbyConnectionManager.shared.submitUserConsent(transferID: transferID, accept: response.actionIdentifier == "ACCEPT")
+        NearbyConnectionManager.shared.submitUserConsent(transferID: transferID, accept: response.actionIdentifier == "ACCEPT")
 		if response.actionIdentifier != "ACCEPT" {
 			activeIncomingTransfers.removeValue(forKey: transferID)
 		}
