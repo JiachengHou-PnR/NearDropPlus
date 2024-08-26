@@ -15,16 +15,18 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	private var activeIncomingTransfers:[String:TransferInfo] = [:]
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
+		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
 		let menu = NSMenu()
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
 		menu.addItem(NSMenuItem.separator())
-		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
 		menu.addItem(withTitle: NSLocalizedString("About", value: "About NearDrop", comment: "") + " " + appVersion
 								 , action: #selector(self.showAboutAlert), keyEquivalent: "")
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+		
 		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
+		statusItem?.button?.toolTip = Bundle.main.infoDictionary?["CFBundleName"] as? String
 		statusItem?.menu = menu
 		statusItem?.behavior = .removalAllowed
 		

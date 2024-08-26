@@ -119,17 +119,15 @@ class InboundNearbyConnection: NearbyConnection {
 	
 	override func processBytesPayload(payload: Data, id: Int64) throws -> Bool {
 		if id == textPayloadID {
-			if currentState == .receivingText {
+			if let urlStr = String(data: payload, encoding: .utf8), let url = URL(string: urlStr) {
+				NSWorkspace.shared.open(url)
+			} else if currentState == .receivingText {
 				if let text = String(data: payload, encoding: .utf8) {
 					let pasteboard = NSPasteboard.general
 					pasteboard.clearContents() // Clear the clipboard
 					if !pasteboard.setString(text, forType: .string) {
 						print("Could not setString in pasteboard")
 					}
-				}
-			} else {
-				if let urlStr = String(data: payload, encoding: .utf8), let url = URL(string: urlStr) {
-					NSWorkspace.shared.open(url)
 				}
 			}
 			try sendDisconnectionAndDisconnect()
