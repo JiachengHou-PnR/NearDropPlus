@@ -21,7 +21,6 @@ class InboundNearbyConnection: NearbyConnection {
   public var delegate:InboundNearbyConnectionDelegate?
   private var cipherCommitment:Data?
   
-  private var bytesPayloadID:Int64 = 0
 	private var bytesPayloadMeta:Sharing_Nearby_TextMetadata?
 
 	enum State {
@@ -119,26 +118,26 @@ class InboundNearbyConnection: NearbyConnection {
 	}
 	
 	override func processBytesPayload(payload: Data, id: Int64) throws -> Bool {
-		if id == bytesPayloadID {
+		if bytesPayloadMeta != nil
+				&& bytesPayloadMeta!.hasPayloadID
+				&& id == bytesPayloadMeta!.payloadID {
 			if currentState == .receivingText {
 				if let textStr = String(data: payload, encoding: .utf8) {
-					if bytesPayloadMeta!.hasPayloadID && id == bytesPayloadMeta!.payloadID {
-						switch bytesPayloadMeta!.type {
-						case .url:
-							guard let url = URL(string: textStr) else { return false }
-							NSWorkspace.shared.open(url)
-						case .phoneNumber:
-							guard let url = URL(string: "tel:" + textStr) else { return false }
-							NSWorkspace.shared.open(url)
-						case .address:
-							guard let url = URL(string: "maps://?address=" + textStr) else { return false }
-							NSWorkspace.shared.open(url)
-						default:
-							let pasteboard = NSPasteboard.general
-							pasteboard.clearContents() // Clear the clipboard
-							if !pasteboard.setString(textStr, forType: .string) {
-								print("Could not setString in pasteboard")
-							}
+					switch bytesPayloadMeta!.type {
+					case .url:
+						guard let url = URL(string: textStr) else { return false }
+						NSWorkspace.shared.open(url)
+					case .phoneNumber:
+						guard let url = URL(string: "tel:" + textStr) else { return false }
+						NSWorkspace.shared.open(url)
+					case .address:
+						guard let url = URL(string: "maps://?address=" + textStr) else { return false }
+						NSWorkspace.shared.open(url)
+					default:
+						let pasteboard = NSPasteboard.general
+						pasteboard.clearContents() // Clear the clipboard
+						if !pasteboard.setString(textStr, forType: .string) {
+							print("Could not setString in pasteboard")
 						}
 					}
 				}
@@ -327,7 +326,6 @@ class InboundNearbyConnection: NearbyConnection {
 				rejectTransfer(with: .unsupportedAttachmentType)
 			} else {
 				let metadata = TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: bytesPayloadMeta!.textTitle)
-				bytesPayloadID = bytesPayloadMeta!.payloadID
 				DispatchQueue.main.async {
 					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
 				}
