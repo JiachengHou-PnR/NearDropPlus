@@ -15,6 +15,7 @@
         $attachment,
         ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.file-url"
         OR ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.url"
+				OR ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.text"
         AND NOT (ANY $attachment.registeredTypeIdentifiers UTI-CONFORMS-TO "public.folder")
     ).@count == $extensionItem.attachments.@count
 ).@count &gt; 0</string>
