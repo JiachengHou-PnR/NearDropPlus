@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		menu.addItem(NSMenuItem.separator())
 		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
 		menu.addItem(withTitle: NSLocalizedString("About", value: "About NearDrop", comment: "") + " " + appVersion
-								 , action: #selector(showAboutAlert), keyEquivalent: "")
+								 , action: #selector(self.showAboutAlert), keyEquivalent: "")
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
@@ -63,18 +63,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	@objc
 	func showAboutAlert() {
 		let alert = NSAlert()
-		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-		let titleText = Bundle.main.infoDictionary?["CFBundleName"] as? String
-		alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDrop v", comment: "")
+
+		alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDropPlusPlus v", comment: "")
+		alert.messageText += Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
+
+		alert.informativeText = "\n" + NSLocalizedString("NotificationsVersion.Credit", value: "From NearDrop by grishka", comment: "")
 		
-		if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-			alert.messageText += appVersion
-		} else {
-			alert.messageText += NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
-		}
-		
-		alert.informativeText = "NearDrop by grishka\nNearDropPlusPlus by Jiacheng Hou\n"
-			
 		alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
 		alert.runModal()
 	}

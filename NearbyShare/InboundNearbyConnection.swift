@@ -48,20 +48,20 @@ class InboundNearbyConnection: NearbyConnection {
 		do {
 			switch currentState {
 			case .initial:
-				let frame = try Location_Nearby_Connections_OfflineFrame(serializedData: frameData)
+				let frame = try Location_Nearby_Connections_OfflineFrame(serializedBytes: frameData)
 				try processConnectionRequestFrame(frame)
 			case .receivedConnectionRequest:
-				let msg = try Securegcm_Ukey2Message(serializedData: frameData)
+				let msg = try Securegcm_Ukey2Message(serializedBytes: frameData)
 				ukeyClientInitMsgData = frameData
 				try processUkey2ClientInit(msg)
 			case .sentUkeyServerInit:
-				let msg = try Securegcm_Ukey2Message(serializedData: frameData)
+				let msg = try Securegcm_Ukey2Message(serializedBytes: frameData)
 				try processUkey2ClientFinish(msg, raw: frameData)
 			case .receivedUkeyClientFinish:
-				let frame = try Location_Nearby_Connections_OfflineFrame(serializedData: frameData)
+				let frame = try Location_Nearby_Connections_OfflineFrame(serializedBytes: frameData)
 				try processConnectionResponseFrame(frame)
 			default:
-				let smsg = try Securemessage_SecureMessage(serializedData: frameData)
+				let smsg = try Securemessage_SecureMessage(serializedBytes: frameData)
 				try decryptAndProcessReceivedSecureMessage(smsg)
 			}
 		} catch {
@@ -159,7 +159,7 @@ class InboundNearbyConnection: NearbyConnection {
 		}
 		let clientInit:Securegcm_Ukey2ClientInit
 		do {
-			clientInit = try Securegcm_Ukey2ClientInit(serializedData: msg.messageData)
+			clientInit = try Securegcm_Ukey2ClientInit(serializedBytes: msg.messageData)
 		} catch {
 			sendUkey2Alert(type: .badMessageData)
 			throw NearbyError.ukey2
@@ -223,9 +223,9 @@ class InboundNearbyConnection: NearbyConnection {
 		sha.update(data: raw)
 		guard cipherCommitment == Data(sha.finalize()) else { throw NearbyError.ukey2 }
 		
-		let clientFinish = try Securegcm_Ukey2ClientFinished(serializedData: msg.messageData)
+		let clientFinish = try Securegcm_Ukey2ClientFinished(serializedBytes: msg.messageData)
         guard clientFinish.hasPublicKey else { throw NearbyError.requiredFieldMissing("ukey2clientFinish.publicKey") }
-		let clientKey = try Securemessage_GenericPublicKey(serializedData: clientFinish.publicKey)
+		let clientKey = try Securemessage_GenericPublicKey(serializedBytes: clientFinish.publicKey)
 		
 		try finalizeKeyExchange(peerKey: clientKey)
 		

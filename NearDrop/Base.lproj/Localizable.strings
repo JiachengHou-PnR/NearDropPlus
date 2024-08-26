@@ -42,8 +42,10 @@
 
 "About" = "About NearDrop";
 
-"NotificationsVersion.Title" = "NearDrop v";
+"NotificationsVersion.Title" = "NearDropPlusPlus v";
 
-"NotificationVersion.Error"="unknown version";
+"NotificationVersion.Error" = "unknown version";
+
+"NotificationsVersion.Credit" = "From NearDrop by grishka";
 
 "OK" = "OK";
