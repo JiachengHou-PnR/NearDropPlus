@@ -18,7 +18,7 @@
                BlueprintIdentifier = "699DEBA02AB0573200115D22"
                BuildableName = "ShareExtension.appex"
                BlueprintName = "ShareExtension"
-               ReferencedContainer = "container:NearDrop.xcodeproj">
+               ReferencedContainer = "container:NearDropPlusPlus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -30,9 +30,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "69DA9A0D29E0BF5100A442DA"
-               BuildableName = "NearDrop.app"
-               BlueprintName = "NearDrop"
-               ReferencedContainer = "container:NearDrop.xcodeproj">
+               BuildableName = "NearDropPlusPlus.app"
+               BlueprintName = "NearDropPlusPlus"
+               ReferencedContainer = "container:NearDropPlusPlus.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -60,9 +60,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69DA9A0D29E0BF5100A442DA"
-            BuildableName = "NearDrop.app"
-            BlueprintName = "NearDrop"
-            ReferencedContainer = "container:NearDrop.xcodeproj">
+            BuildableName = "NearDropPlusPlus.app"
+            BlueprintName = "NearDropPlusPlus"
+            ReferencedContainer = "container:NearDropPlusPlus.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </LaunchAction>
@@ -79,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69DA9A0D29E0BF5100A442DA"
-            BuildableName = "NearDrop.app"
-            BlueprintName = "NearDrop"
-            ReferencedContainer = "container:NearDrop.xcodeproj">
+            BuildableName = "NearDropPlusPlus.app"
+            BlueprintName = "NearDropPlusPlus"
+            ReferencedContainer = "container:NearDropPlusPlus.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
