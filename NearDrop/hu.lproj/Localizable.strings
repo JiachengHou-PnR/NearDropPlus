@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Elfogad";
 
 /* No comment provided by engineer. */
@@ -40,3 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Mindenki számára felfedezhető";
 
+"About" = "Névjegy NearDropPlusPlus %@";
+
+"AboutAlert.Title" = "NearDropPlusPlus v%@";
+
+"AboutAlert.UnknownVersion" = " (ismeretlen)";
+
+"AboutAlert.Credit" = "NearDrop-tól grishka által";
+
+"OK" = "OK";
+
+"AutoCopyToClipboard" = "Szövegek automatikus másolása a vágólapra";
+
+"OpenLinksInApp" = "Linkek megnyitása alapértelmezett alkalmazásokban";

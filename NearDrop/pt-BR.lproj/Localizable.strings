@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Aceitar";
 
 /* No comment provided by engineer. */
@@ -40,3 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visível para todos";
 
+"About" = "Sobre NearDropPlusPlus %@";
+
+"AboutAlert.Title" = "Versão NearDropPlusPlus %@";
+
+"AboutAlert.UnknownVersion" = "(desconhecida)";
+
+"AboutAlert.Credit" = "De NearDrop por grishka";
+
+"OK" = "OK";
+
+"AutoCopyToClipboard" = "Copiar textos para a área de transferência automaticamente";
+
+"OpenLinksInApp" = "Abrir links em aplicativos padrão";

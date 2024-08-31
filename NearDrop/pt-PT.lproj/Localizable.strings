@@ -40,3 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visível para todos";
 
+"About" = "Sobre o NearDropPlusPlus %@";
+
+"AboutAlert.Title" = "Versão NearDropPlusPlus %@";
+
+"AboutAlert.UnknownVersion" = "(desconhecida)";
+
+"AboutAlert.Credit" = "Do NearDrop por grishka";
+
+"OK" = "OK";
+
+"AutoCopyToClipboard" = "Copiar textos para a área de transferência automaticamente";
+
+"OpenLinksInApp" = "Abrir links em aplicações padrão";

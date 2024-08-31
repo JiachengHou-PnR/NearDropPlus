@@ -47,3 +47,17 @@
 "NotificationVersion.Error"="버전 확인 불가.";
 
 "OK" = "확인";
+
+"About" = "NearDropPlusPlus %@ 정보";
+
+"AboutAlert.Title" = "NearDropPlusPlus 버전 %@";
+
+"AboutAlert.UnknownVersion" = "(알 수 없음)";
+
+"AboutAlert.Credit" = "grishka의 NearDrop에서";
+
+"OK" = "확인";
+
+"AutoCopyToClipboard" = "텍스트를 자동으로 클립보드에 복사";
+
+"OpenLinksInApp" = "링크를 기본 애플리케이션에서 열기";

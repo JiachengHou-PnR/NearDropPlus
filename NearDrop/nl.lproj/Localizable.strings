@@ -40,3 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Zichtbaar voor iedereen";
 
+"About" = "Over NearDropPlusPlus %@";
+
+"AboutAlert.Title" = "NearDropPlusPlus v%@";
+
+"AboutAlert.UnknownVersion" = "(onbekend)";
+
+"AboutAlert.Credit" = "Van NearDrop door grishka";
+
+"OK" = "OK";
+
+"AutoCopyToClipboard" = "Teksten automatisch naar klembord kopiëren";
+
+"OpenLinksInApp" = "Links openen in standaardapplicaties";

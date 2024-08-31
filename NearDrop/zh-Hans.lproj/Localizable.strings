@@ -40,10 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "对所有人可见";
 
-"About" = "关于 NearDrop";
+"About" = "关于 NearDropPlusPlus %@";
 
-"NotificationsVersion.Title" = "NearDrop ";
+"AboutAlert.Title" = "NearDropPlusPlus 版本%@";
 
-"NotificationVersion.Error"="未知版本";
+"AboutAlert.UnknownVersion" = "（未知）";
 
-"OK" = "OK";
+"AboutAlert.Credit" = "源自 grishka 的 NearDrop";
+
+"OK" = "确定";
+
+"AutoCopyToClipboard" = "自动将文本内容复制到剪贴板";
+
+"OpenLinksInApp" = "使用默认程序打开链接";

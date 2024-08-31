@@ -13,16 +13,26 @@ import NearbyShare
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate, MainAppDelegate {
 	private var statusItem:NSStatusItem?
 	private var activeIncomingTransfers:[String:TransferInfo] = [:]
+	private static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("AboutAlert.UnknownVersion", value: "(unknown)", comment: "")
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
-		let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
+		
 		let menu = NSMenu()
+		
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
 		menu.addItem(withTitle: String(format: NSLocalizedString("DeviceName", value: "Device name: %@", comment: ""), arguments: [Host.current().localizedName!]), action: nil, keyEquivalent: "")
+		
 		menu.addItem(NSMenuItem.separator())
-		menu.addItem(withTitle: NSLocalizedString("About", value: "About NearDrop", comment: "") + " " + appVersion
-								 , action: #selector(self.showAboutAlert), keyEquivalent: "")
-		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDrop", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
+		let copyToClipboardItem = menu.addItem(withTitle: NSLocalizedString("AutoCopyToClipboard", value: "Copy texts to clipboard automatically", comment: ""), action: #selector(toggleOption(_:)), keyEquivalent: "")
+		copyToClipboardItem.state = Preferences.autoCopyToClipboard ? .on : .off
+		copyToClipboardItem.tag = .autoCopyToClipboard
+		let openLinksItem = menu.addItem(withTitle: NSLocalizedString("OpenLinksInApp", value: "Open links in default applications", comment: ""), action: #selector(toggleOption(_:)), keyEquivalent: "")
+		openLinksItem.state = Preferences.openLinksInApp ? .on : .off
+		openLinksItem.tag = .openLinksInApp
+		
+		menu.addItem(NSMenuItem.separator())
+		menu.addItem(withTitle: String(format: NSLocalizedString("About", value: "About NearDropPlusPlus %@", comment: ""), arguments: [AppDelegate.appVersion]), action: #selector(self.showAboutAlert), keyEquivalent: "")
+		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDropPlusPlus", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		
 		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
@@ -62,18 +72,30 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		return true
 	}
     
-	@objc
-	func showAboutAlert() {
+	@objc func showAboutAlert() {
 		let alert = NSAlert()
 
-		alert.messageText = NSLocalizedString("NotificationsVersion.Title", value: "NearDropPlusPlus v", comment: "")
-		alert.messageText += Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("NotificationVersion.Error", value: "unknown version", comment: "")
-
-		alert.informativeText = "\n" + NSLocalizedString("NotificationsVersion.Credit", value: "From NearDrop by grishka", comment: "")
+		alert.messageText = String(format: NSLocalizedString("AboutAlert.Title", value: "NearDropPlusPlus v%@", comment: ""), arguments: [AppDelegate.appVersion])
+		
+		alert.informativeText = "\n" + NSLocalizedString("AboutAlert.Credit", value: "From NearDrop by grishka", comment: "")
 		
 		alert.addButton(withTitle: NSLocalizedString("OK", value: "OK", comment: ""))
 		alert.runModal()
 	}
+	
+	@objc func toggleOption(_ sender: NSMenuItem) {
+		let shouldBeOn = sender.state != .on
+		sender.state = shouldBeOn ? .on : .off
+		switch sender.tag {
+		case .autoCopyToClipboard:
+			Preferences.autoCopyToClipboard = shouldBeOn
+		case .openLinksInApp:
+			Preferences.openLinksInApp = shouldBeOn
+		default:
+			print("Unhandled toggle menu action")
+		}
+	}
+
 	
 	func showNotificationsDeniedAlert() {
 		let alert = NSAlert()
@@ -109,7 +131,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 			fileStr = String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
 		}
 		let notificationContent = UNMutableNotificationContent()
-		notificationContent.title = "NearDrop"
+		notificationContent.title = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "NearDropPlusPlus"
 		notificationContent.subtitle = String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [transfer.pinCode!])
 		notificationContent.body = String(format: NSLocalizedString("DeviceSendingFiles", value: "%1$@ is sending you %2$@", comment: ""), arguments: [device.name, fileStr])
 		notificationContent.sound = .default
@@ -150,9 +172,40 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["transfer_"+id])
 		self.activeIncomingTransfers.removeValue(forKey: id)
 	}
+	
+	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo) {
+		let fileStr:String
+		if let textTitle = transfer.textDescription {
+			fileStr = textTitle
+		} else if transfer.files.count == 1 {
+			fileStr = transfer.files[0].name
+		} else {
+			fileStr = String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
+		}
+		
+		let notificationContent = UNMutableNotificationContent()
+		notificationContent.title = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "NearDropPlusPlus"
+		notificationContent.subtitle = "Incoming Transfer Accepted"
+		if transfer.textDescription == nil {
+			notificationContent.body = fileStr + " from " + device.name + " saved in Downloads folder."
+		} else {
+			notificationContent.body = "Content from " + device.name
+			notificationContent.body += Preferences.openLinksInApp ? " opened in default browser." : " pasted in clipboard."
+		}
+		notificationContent.categoryIdentifier = "INCOMING_TRANSFERS"
+		notificationContent.userInfo = ["transferID": transfer.id]
+		notificationContent.categoryIdentifier = "ERRORS"
+		UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "transferAccepted_"+transfer.id, content: notificationContent, trigger: nil))
+	}
 }
 
 struct TransferInfo {
 	let device:RemoteDeviceInfo
 	let transfer:TransferMetadata
+}
+
+// MARK: - Menu item tags
+fileprivate extension Int {
+	static let autoCopyToClipboard = 1
+	static let openLinksInApp = 2
 }

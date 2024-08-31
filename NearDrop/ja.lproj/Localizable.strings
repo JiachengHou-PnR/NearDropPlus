@@ -40,3 +40,17 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "すべてのユーザーに公開";
 
+"About" = "NearDropPlusPlus %@ について";
+
+"AboutAlert.Title" = "NearDropPlusPlus バージョン";
+
+"AboutAlert.UnknownVersion" = "（不明）";
+
+"AboutAlert.Credit" = "grishka の NearDrop より";
+
+"OK" = "OK";
+
+"AutoCopyToClipboard" = "テキストを自動的にクリップボードにコピー";
+
+"OpenLinksInApp" = "リンクをデフォルトのアプリで開く";
+
