@@ -11,15 +11,14 @@ import CryptoKit
 import CommonCrypto
 import System
 import AppKit
-
 import SwiftECC
 import BigInt
 
 class InboundNearbyConnection: NearbyConnection {
-  
-  private var currentState:State = .initial
-  public var delegate:InboundNearbyConnectionDelegate?
-  private var cipherCommitment:Data?
+
+    private var currentState:State = .initial
+    public var delegate:InboundNearbyConnectionDelegate?
+    private var cipherCommitment:Data?
   
 	private var bytesPayloadMeta:Sharing_Nearby_TextMetadata?
 
@@ -102,10 +101,10 @@ class InboundNearbyConnection: NearbyConnection {
 		let currentOffset = fileInfo.bytesTransferred
 		guard frame.payloadChunk.offset == currentOffset else { throw NearbyError.protocolError("Invalid offset into file \(frame.payloadChunk.offset), expected \(currentOffset)") }
 		guard currentOffset+Int64(frame.payloadChunk.body.count) <= fileInfo.meta.size else { throw NearbyError.protocolError("Transferred file size exceeds previously specified value") }
-        if frame.payloadChunk.body.count>0 {
-            fileInfo.fileHandle?.write(frame.payloadChunk.body)
-            transferredFiles[id]!.bytesTransferred += Int64(frame.payloadChunk.body.count)
-            fileInfo.progress?.completedUnitCount = transferredFiles[id]!.bytesTransferred
+		if frame.payloadChunk.body.count > 0 {
+			fileInfo.fileHandle?.write(frame.payloadChunk.body)
+			transferredFiles[id]!.bytesTransferred += Int64(frame.payloadChunk.body.count)
+			fileInfo.progress?.completedUnitCount = transferredFiles[id]!.bytesTransferred
 		} else if (frame.payloadChunk.flags & 1) == 1 {
 			try fileInfo.fileHandle?.close()
 			transferredFiles[id]!.fileHandle = nil
@@ -123,21 +122,29 @@ class InboundNearbyConnection: NearbyConnection {
 				&& id == bytesPayloadMeta!.payloadID {
 			if currentState == .receivingText {
 				if let textStr = String(data: payload, encoding: .utf8) {
-					switch bytesPayloadMeta!.type {
-					case .url:
-						guard let url = URL(string: textStr) else { return false }
-						NSWorkspace.shared.open(url)
-					case .phoneNumber:
-						guard let url = URL(string: "tel:" + textStr) else { return false }
-						NSWorkspace.shared.open(url)
-					case .address:
-						guard let url = URL(string: "maps://?address=" + textStr) else { return false }
-						NSWorkspace.shared.open(url)
-					default:
+					if Preferences.autoCopyToClipboard {
 						let pasteboard = NSPasteboard.general
 						pasteboard.clearContents() // Clear the clipboard
 						if !pasteboard.setString(textStr, forType: .string) {
 							print("Could not setString in pasteboard")
+						}
+					} else {
+						switch (bytesPayloadMeta!.type, Preferences.openLinksInApp) {
+						case (.url, true):
+							guard let url = URL(string: textStr) else { return false }
+							NSWorkspace.shared.open(url)
+						case (.phoneNumber, true):
+							guard let url = URL(string: "tel:" + textStr) else { return false }
+							NSWorkspace.shared.open(url)
+						case (.address, true):
+							guard let url = URL(string: "maps://?address=" + textStr) else { return false }
+							NSWorkspace.shared.open(url)
+						default:
+							let pasteboard = NSPasteboard.general
+							pasteboard.clearContents() // Clear the clipboard
+							if !pasteboard.setString(textStr, forType: .string) {
+								print("Could not setString in pasteboard")
+							}
 						}
 					}
 				}
@@ -293,7 +300,7 @@ class InboundNearbyConnection: NearbyConnection {
 	private func processIntroductionFrame(_ frame:Sharing_Nearby_Frame) throws {
         guard frame.hasV1, frame.v1.hasIntroduction else { throw NearbyError.requiredFieldMissing("shareNearbyFrame.v1.introduction") }
 		currentState = .waitingForUserConsent
-		if frame.v1.introduction.fileMetadata.count>0 && frame.v1.introduction.textMetadata.isEmpty {
+		if frame.v1.introduction.fileMetadata.count > 0 && frame.v1.introduction.textMetadata.isEmpty {
 			let downloadsDirectory = (try FileManager.default.url(for: .downloadsDirectory, in: .userDomainMask, appropriateFor: nil, create: true)).resolvingSymlinksInPath()
 			for file in frame.v1.introduction.fileMetadata {
 				var dest = downloadsDirectory.appendingPathComponent(file.name)
@@ -324,13 +331,17 @@ class InboundNearbyConnection: NearbyConnection {
 			bytesPayloadMeta = frame.v1.introduction.textMetadata[0]
 			if case .unknown = bytesPayloadMeta!.type {
 				rejectTransfer(with: .unsupportedAttachmentType)
+			} else if Preferences.autoCopyToClipboard {
+				let metadata = TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: bytesPayloadMeta!.textTitle)
+				self.acceptTransfer()
+				self.delegate?.incomingTransferAcceptedAlert(for: metadata, from: self.remoteDeviceInfo!, connection: self)
 			} else {
 				let metadata = TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: bytesPayloadMeta!.textTitle)
 				DispatchQueue.main.async {
 					self.delegate?.obtainUserConsent(for: metadata, from: self.remoteDeviceInfo!, connection: self)
 				}
 			}
-		}else {
+		} else {
 			rejectTransfer(with: .unsupportedAttachmentType)
 		}
 	}
@@ -402,4 +413,5 @@ class InboundNearbyConnection: NearbyConnection {
 protocol InboundNearbyConnectionDelegate {
 	func obtainUserConsent(for transfer:TransferMetadata, from device:RemoteDeviceInfo, connection:InboundNearbyConnection)
 	func connectionWasTerminated(connection:InboundNearbyConnection, error:Error?)
+	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo, connection: InboundNearbyConnection)
 }

@@ -48,6 +48,25 @@ public struct RemoteDeviceInfo {
 	}
 }
 
+@propertyWrapper
+public struct UserDefault<T> {
+	private let key: String
+	private let defaultValue: T
+	
+	init(key: String, defaultValue: T) {
+		self.key = key
+		self.defaultValue = defaultValue
+	}
+	
+	public var wrappedValue: T {
+		get {
+			UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
+		}
+		set {
+			UserDefaults.standard.set(newValue, forKey: key)
+		}
+	}
+}
 
 public enum NearbyError:Error {
 	case protocolError(_ message:String)
@@ -59,6 +78,14 @@ public enum NearbyError:Error {
 	public enum CancellationReason {
 		case userRejected, userCanceled, notEnoughSpace, unsupportedType, timedOut
 	}
+}
+
+public enum Preferences {
+	@UserDefault(key: "openLinks", defaultValue: true)
+	public static var openLinksInApp: Bool
+	
+	@UserDefault(key: "copyWithoutConsent", defaultValue: false)
+	public static var autoCopyToClipboard: Bool
 }
 
 public struct TransferMetadata {
@@ -136,6 +163,7 @@ struct EndpointInfo {
 public protocol MainAppDelegate {
 	func obtainUserConsent(for transfer:TransferMetadata, from device:RemoteDeviceInfo)
 	func incomingTransfer(id:String, didFinishWith error:Error?)
+	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo)
 }
 
 public protocol ShareExtensionDelegate:AnyObject {
@@ -226,6 +254,11 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 		guard let delegate = mainAppDelegate else { return }
 		delegate.incomingTransfer(id: connection.id, didFinishWith: error)
 		activeConnections.removeValue(forKey: connection.id)
+	}
+	
+	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo, connection: InboundNearbyConnection) {
+		guard let delegate = mainAppDelegate else { return }
+		delegate.incomingTransferAcceptedAlert(for: transfer, from: device)
 	}
 	
 	public func submitUserConsent(transferID:String, accept:Bool) {

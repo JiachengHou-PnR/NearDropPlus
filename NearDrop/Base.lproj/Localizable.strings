@@ -32,7 +32,7 @@
 "PinCode" = "PIN: %@";
 
 /* No comment provided by engineer. */
-"Quit" = "Quit NearDrop";
+"Quit" = "Quit NearDropPlusPlus";
 
 /* No comment provided by engineer. */
 "TransferError" = "Failed to receive files from %@";
@@ -40,12 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visible to everyone";
 
-"About" = "About NearDrop";
+"About" = "About NearDropPlusPlsu %@";
 
-"NotificationsVersion.Title" = "NearDropPlusPlus v";
+"AboutAlert.Title" = "NearDropPlusPlus v%@";
 
-"NotificationVersion.Error" = "unknown version";
+"AboutAlert.UnknownVersion" = "(unknown)";
 
-"NotificationsVersion.Credit" = "From NearDrop by grishka";
+"AboutAlert.Credit" = "From NearDrop by grishka";
 
 "OK" = "OK";
+
+"AutoCopyToClipboard" = "Copy texts to clipboard automatically";
+
+"OpenLinksInApp" = "Open links in default applications";

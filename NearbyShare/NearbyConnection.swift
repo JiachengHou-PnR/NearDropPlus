@@ -16,7 +16,7 @@ import BigInt
 
 class NearbyConnection {
 	internal static let SANE_FRAME_LENGTH = 5*1024*1024
-	private static let dispatchQueue = DispatchQueue(label: "me.grishka.NearDrop.queue", qos: .utility) // FIFO (non-concurrent) queue to avoid those exciting concurrency bugs
+	private static let dispatchQueue = DispatchQueue(label: "me.jiahou.NearDropPlusPlus.queue", qos: .utility) // FIFO (non-concurrent) queue to avoid those exciting concurrency bugs
 	
 	internal let connection:NWConnection
 	internal var remoteDeviceInfo:RemoteDeviceInfo?
@@ -294,9 +294,9 @@ class NearbyConnection {
 				try processFileChunk(frame: payloadTransfer)
 			}
 		} else if offlineFrame.hasV1 && offlineFrame.v1.hasType, case .keepAlive = offlineFrame.v1.type {
-			#if DEBUG
+#if DEBUG
 			print("Sent keep-alive")
-			#endif
+#endif
 			sendKeepAlive(ack: true)
 		} else {
 			print("Unhandled offline frame encrypted: \(offlineFrame)")
