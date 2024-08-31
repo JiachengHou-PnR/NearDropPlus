@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Принять";
 
 /* No comment provided by engineer. */
@@ -39,3 +39,17 @@
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Title" = "Требуется доступ к уведомлениям";
+
+"About" = "О NearDropPlusPlus %@";
+
+"AboutAlert.Title" = "Версия NearDropPlusPlus %@";
+
+"AboutAlert.UnknownVersion" = "(неизвестно)";
+
+"AboutAlert.Credit" = "От NearDrop, автор grishka";
+
+"OK" = "OK";
+
+"AutoCopyToClipboard" = "Автоматически копировать текст в буфер обмена";
+
+"OpenLinksInApp" = "Открывать ссылки в стандартных приложениях";

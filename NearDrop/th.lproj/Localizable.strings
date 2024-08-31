@@ -40,3 +40,16 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "เปิดเผยต่อทุกคน";
 
+"About" = "เกี่ยวกับ NearDropPlusPlus %@";
+
+"AboutAlert.Title" = "เวอร์ชัน NearDropPlusPlus %@";
+
+"AboutAlert.UnknownVersion" = "(ไม่ทราบ)";
+
+"AboutAlert.Credit" = "จาก NearDrop โดย grishka";
+
+"OK" = "ตกลง";
+
+"AutoCopyToClipboard" = "คัดลอกข้อความไปยังคลิปบอร์ดโดยอัตโนมัติ";
+
+"OpenLinksInApp" = "เปิดลิงก์ในแอปพลิเคชันเริ่มต้น";
