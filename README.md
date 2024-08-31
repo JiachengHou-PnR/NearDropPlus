@@ -1,5 +1,5 @@
-# NearDrop++
-**NearDrop++** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
+# NearDropPlusPlus
+**NearDropPlusPlus** is a partial implementation of [Google's Nearby Share](https://blog.google/products/android/nearby-share/)/Quick Share for macOS.
 
 The app lives in your menu bar and saves files to your downloads folder. It's that simple, really.
 
@@ -7,7 +7,7 @@ It is based on [NearDrop](https://github.com/grishka/NearDrop) by [grishka](http
 
 [Protocol documentation](/PROTOCOL.md) is available separately.
 
-## Why ++ ?
+## Why "PlusPlus" ?
 It contains many enhancements built by other community members that are not accepted by the original creator.
 
 Grishka, the original creator of this project, made a distinction between *open-source* and *community-driven*, as in, the community around an open-source project does not necessarily get to decide how it develops and what features it has (https://github.com/grishka/NearDrop/pull/127#issuecomment-2029534303). Based on this, grishka has rejected many contributions that added more features to the project.
@@ -17,7 +17,7 @@ This is an important distinction, and I totally agree with grishka. I also fully
 ### List of Enhancements
 *  **Text, phone number and URL sharing** by [@d4rk-lucif3r](https://github.com/d4rk-lucif3r)'s [repo](https://github.com/d4rk-lucif3r/NearDrop)
 * **Version info menu item** by [@Jaehwa-Noh](https://github.com/Jaehwa-Noh)'s PR grishka/NearDrop#121
-* **Preference options** by [@krispykalsi](https://github.com/krispykalsi)
+* **Preference options** by [@krispykalsi](https://github.com/krispykalsi)'s [repo](https://github.com/krispykalsi/NearDrop)
 
 ## Limitations
 
