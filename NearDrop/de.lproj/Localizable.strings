@@ -1,5 +1,7 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Akzeptieren";
+
+"AcceptAndRemember" = "Akzeptieren und merken";
 
 /* No comment provided by engineer. */
 "Decline" = "Ablehnen";
@@ -11,13 +13,23 @@
 "DeviceSendingFiles" = "%1$@ möchte dir \"%2$@\" senden";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "Verschlüsselungsfehler";
+"TransferError.Crypto" = "Verschlüsselungsfehler";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Fehler bei der Datenübertragung";
+"TransferError.Protocol" = "Fehler bei der Datenübertragung";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d Dateien";
+
+"TransferAccepted" = "Sie haben %1$@ von %2$@ erhalten";
+
+"TransferAccepted.Files" = "Dateien im Download-Ordner gespeichert.";
+
+"TransferAccepted.Texts" = "Texte wurden %@.";
+
+"TransferAccepted.Texts.Copy" = "in die Zwischenablage kopiert";
+
+"TransferAccepted.Texts.Open" = "in der Standardanwendung geöffnet";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop benötigt die Erlaubnis Mitteilungen für eingehende Datenransfers anzuzeigen. Bitte erlaube Mitteilungen in den Systemeinstellungen.";

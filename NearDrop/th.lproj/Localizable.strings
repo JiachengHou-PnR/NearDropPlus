@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "ยอมรับ";
 
 /* No comment provided by engineer. */
@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ กำลังส่งไฟล์ให้คุณ %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "การเข้ารหัสผิดพลาด";
+"TransferError.Crypto" = "การเข้ารหัสผิดพลาด";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "การสื่อสารผิดพลาด";
+"TransferError.Protocol" = "การสื่อสารผิดพลาด";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d ไฟล์";
+
+"TransferAccepted" = "คุณได้รับ %1$@ จาก %2$@";
+
+"TransferAccepted.Files" = "ไฟล์ถูกบันทึกในโฟลเดอร์ดาวน์โหลด";
+
+"TransferAccepted.Texts" = "ข้อความได้ถูก %@.";
+
+"TransferAccepted.Texts.Copy" = "คัดลอกไปยังคลิปบอร์ดแล้ว";
+
+"TransferAccepted.Texts.Open" = "เปิดในแอปพลิเคชันเริ่มต้นแล้ว";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop ไม่สามารถแสดงการแจ้งเตือนไฟล์ที่เข้ามาได้ โปรดให้สิทธิ์การแจ้งเตือน ในการตั้งค่าระบบ";

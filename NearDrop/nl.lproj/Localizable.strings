@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Accepteer";
 
 /* No comment provided by engineer. */
@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ stuurt je %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "Fout bij codering";
+"TransferError.Crypto" = "Fout bij codering";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Communicatiefout";
+"TransferError.Protocol" = "Communicatiefout";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d bestanden";
+
+"TransferAccepted" = "Je hebt %1$@ ontvangen van %2$@";
+
+"TransferAccepted.Files" = "Bestanden opgeslagen in de map Downloads.";
+
+"TransferAccepted.Texts" = "Teksten zijn %@.";
+
+"TransferAccepted.Texts.Copy" = "gekopieerd naar het klembord";
+
+"TransferAccepted.Texts.Open" = "geopend in standaardtoepassing";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop moet meldingen kunnen weergeven voor inkomende bestandsoverdrachten. Sta meldingen toe in de systeeminstellingen.";

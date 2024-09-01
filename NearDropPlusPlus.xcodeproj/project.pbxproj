@@ -40,6 +40,9 @@
 		69DCF49C2AB8C58500CBE2CC /* SwiftECC in Frameworks */ = {isa = PBXBuildFile; productRef = 69DCF49B2AB8C58500CBE2CC /* SwiftECC */; };
 		69DCF49D2AB8C9A500CBE2CC /* libNearbyShare.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 69DCF4812AB70D0600CBE2CC /* libNearbyShare.dylib */; };
 		69DCF49E2AB8C9A500CBE2CC /* libNearbyShare.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = 69DCF4812AB70D0600CBE2CC /* libNearbyShare.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		CF2923A52C83E19800DD615F /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = CF2923A42C83E19800DD615F /* SwiftProtobufPluginLibrary */; };
+		CF2923AE2C84E1F700DD615F /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = CF2923AD2C84E1F700DD615F /* BigInt */; };
+		CF2923B12C84E20900DD615F /* ASN1 in Frameworks */ = {isa = PBXBuildFile; productRef = CF2923B02C84E20900DD615F /* ASN1 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +201,7 @@
 		B5AC98B72AC831F500351A5D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B670906E2A6D234D00DB8273 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = th; path = th.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		B670906F2A6D237600DB8273 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CF16181D2C84E9E60015B6A5 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		E94E45D82BBD6464009804EF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/ShareViewController.strings"; sourceTree = "<group>"; };
 		E94E45D92BBD6464009804EF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-PT"; path = "pt-PT.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		E94E45DA2BBD6464009804EF /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -226,6 +230,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF2923AE2C84E1F700DD615F /* BigInt in Frameworks */,
+				CF2923B12C84E20900DD615F /* ASN1 in Frameworks */,
+				CF2923A52C83E19800DD615F /* SwiftProtobufPluginLibrary in Frameworks */,
 				69DCF49C2AB8C58500CBE2CC /* SwiftECC in Frameworks */,
 				69DCF49A2AB8C58500CBE2CC /* SwiftProtobuf in Frameworks */,
 			);
@@ -263,6 +270,7 @@
 		69DA9A0529E0BF5100A442DA = {
 			isa = PBXGroup;
 			children = (
+				CF16181D2C84E9E60015B6A5 /* Package.swift */,
 				18637D0C2AC2A25300AF8072 /* NearDrop-InfoPlist.strings */,
 				69DA9A1029E0BF5100A442DA /* NearDrop */,
 				699DEBA22AB0573200115D22 /* ShareExtension */,
@@ -394,8 +402,11 @@
 			);
 			name = NearbyShare;
 			packageProductDependencies = (
+				CF2923AD2C84E1F700DD615F /* BigInt */,
+				CF2923B02C84E20900DD615F /* ASN1 */,
 				69DCF4992AB8C58500CBE2CC /* SwiftProtobuf */,
 				69DCF49B2AB8C58500CBE2CC /* SwiftECC */,
+				CF2923A42C83E19800DD615F /* SwiftProtobufPluginLibrary */,
 			);
 			productName = NearbyShare;
 			productReference = 69DCF4812AB70D0600CBE2CC /* libNearbyShare.dylib */;
@@ -448,6 +459,8 @@
 			);
 			mainGroup = 69DA9A0529E0BF5100A442DA;
 			packageReferences = (
+				CF2923AC2C84E1F700DD615F /* XCRemoteSwiftPackageReference "BigInt" */,
+				CF2923AF2C84E20900DD615F /* XCRemoteSwiftPackageReference "ASN1" */,
 				69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				69DA9A3429E1994C00A442DA /* XCRemoteSwiftPackageReference "SwiftECC" */,
 			);
@@ -751,11 +764,15 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5RGS7L7ZZ3;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -813,11 +830,16 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5RGS7L7ZZ3;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -903,6 +925,7 @@
 		69DCF4872AB70D0600CBE2CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -919,6 +942,7 @@
 		69DCF4882AB70D0600CBE2CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -990,6 +1014,22 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		CF2923AC2C84E1F700DD615F /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leif-ibsen/BigInt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.16.0;
+			};
+		};
+		CF2923AF2C84E20900DD615F /* XCRemoteSwiftPackageReference "ASN1" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/leif-ibsen/ASN1";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1002,6 +1042,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 69DA9A3429E1994C00A442DA /* XCRemoteSwiftPackageReference "SwiftECC" */;
 			productName = SwiftECC;
+		};
+		CF2923A42C83E19800DD615F /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 69DA9A2429E189EF00A442DA /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		CF2923AD2C84E1F700DD615F /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF2923AC2C84E1F700DD615F /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
+		};
+		CF2923B02C84E20900DD615F /* ASN1 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF2923AF2C84E20900DD615F /* XCRemoteSwiftPackageReference "ASN1" */;
+			productName = ASN1;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -86,6 +86,9 @@ public enum Preferences {
 	
 	@UserDefault(key: "copyWithoutConsent", defaultValue: false)
 	public static var autoCopyToClipboard: Bool
+	
+	@UserDefault(key: "rememberedDeviceNames", defaultValue: [])
+	public static var rememberedDevices: [String]
 }
 
 public struct TransferMetadata {
@@ -163,7 +166,7 @@ struct EndpointInfo {
 public protocol MainAppDelegate {
 	func obtainUserConsent(for transfer:TransferMetadata, from device:RemoteDeviceInfo)
 	func incomingTransfer(id:String, didFinishWith error:Error?)
-	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo)
+	func updateMenu()
 }
 
 public protocol ShareExtensionDelegate:AnyObject {
@@ -177,7 +180,6 @@ public protocol ShareExtensionDelegate:AnyObject {
 }
 
 public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNearbyConnectionDelegate, OutboundNearbyConnectionDelegate {
-	
 	private var tcpListener:NWListener;
 	public let endpointID:[UInt8] = generateEndpointID()
 	private var mdnsService:NetService?
@@ -256,14 +258,14 @@ public class NearbyConnectionManager : NSObject, NetServiceDelegate, InboundNear
 		activeConnections.removeValue(forKey: connection.id)
 	}
 	
-	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo, connection: InboundNearbyConnection) {
-		guard let delegate = mainAppDelegate else { return }
-		delegate.incomingTransferAcceptedAlert(for: transfer, from: device)
+	public func submitUserConsent(transferID:String, accept:Bool, rememberDevice:Bool) {
+		guard let conn = activeConnections[transferID] else { return }
+		conn.submitUserConsent(accepted: accept, rememberDevice: rememberDevice)
 	}
 	
-	public func submitUserConsent(transferID:String, accept:Bool) {
-		guard let conn = activeConnections[transferID] else { return }
-		conn.submitUserConsent(accepted: accept)
+	public func updateMenu() {
+		guard let delegate = mainAppDelegate else { return }
+		delegate.updateMenu()
 	}
 	
 	public func startDeviceDiscovery() {

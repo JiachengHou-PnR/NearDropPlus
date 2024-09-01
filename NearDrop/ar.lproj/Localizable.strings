@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ يرسل لك %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "خطأ في التشفير";
+"TransferError.Crypto" = "خطأ في التشفير";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "خطأ في الاتصال";
+"TransferError.Protocol" = "خطأ في الاتصال";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d ملفات";
+
+"TransferAccepted" = "لقد استلمت %1$@ من %2$@";
+
+"TransferAccepted.Files" = "تم حفظ الملفات في مجلد التنزيلات.";
+
+"TransferAccepted.Texts" = "تم %@ النصوص.";
+
+"TransferAccepted.Texts.Copy" = "نسخها إلى الحافظة";
+
+"TransferAccepted.Texts.Open" = "تم فتحها في التطبيق الافتراضي";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "يحتاج NearDrop إلى القدرة على عرض الإشعارات لنقل الملفات الواردة. يرجى السماح بالإشعارات في إعدادات النظام.";

@@ -1,6 +1,8 @@
 /* No comment provided by engineer. */
 "Accept" = "Elfogad";
 
+"AcceptAndRemember" = "Eszköz elfogadása és megjegyzése";
+
 /* No comment provided by engineer. */
 "Decline" = "Elutasít";
 
@@ -11,13 +13,23 @@
 "DeviceSendingFiles" = "%1$@ a következőt küldi: %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "Titkosítási hiba";
+"TransferError.Crypto" = "Titkosítási hiba";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Kommunikációs hiba";
+"TransferError.Protocol" = "Kommunikációs hiba";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d fájl";
+
+"TransferAccepted" = "Megkapta %1$@-t %2$@-tól";
+
+"TransferAccepted.Files" = "Fájlok mentve a Letöltések mappába.";
+
+"TransferAccepted.Texts" = "Szövegek %@.";
+
+"TransferAccepted.Texts.Copy" = "a vágólapra beillesztve";
+
+"TransferAccepted.Texts.Open" = "megnyitva az alapértelmezett alkalmazásban";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "A NearDrop-nak szüksége van értesítéseket küldeni a bejövő fájlok fogadásához. Kérlek engedélyezd az értesítésekhez való hozzáférést a Rendszerbeállításokban.";

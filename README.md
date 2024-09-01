@@ -15,9 +15,26 @@ Grishka, the original creator of this project, made a distinction between *open-
 This is an important distinction, and I totally agree with grishka. I also fully respect the decision of limiting what PRs get to be accepted. On the other hand, it's unfortunate to see community member's effort of improving the project not being accepted and scattered across multiple repos/PRs. Hence, I created this fork to combine some of the enhancements built by other community members into one.
 
 ### List of Enhancements
-*  **Text, phone number and URL sharing** by [@d4rk-lucif3r](https://github.com/d4rk-lucif3r)'s [repo](https://github.com/d4rk-lucif3r/NearDrop)
-* **Version info menu item** by [@Jaehwa-Noh](https://github.com/Jaehwa-Noh)'s PR grishka/NearDrop#121
-* **Preference options** by [@krispykalsi](https://github.com/krispykalsi)'s [repo](https://github.com/krispykalsi/NearDrop)
+
+#### Text, phone number and URL sharing
+
+Author: [@d4rk-lucif3r](https://github.com/d4rk-lucif3r)
+Source: [Repository](https://github.com/d4rk-lucif3r/NearDrop)
+
+#### Version info menu item
+
+Author: [@Jaehwa-Noh](https://github.com/Jaehwa-Noh)
+Source: [Repository](https://github.com/Jaehwa-Noh/NearDrop)
+
+#### Preference options 
+
+Author: [@krispykalsi](https://github.com/krispykalsi)
+Source: [Repository](https://github.com/krispykalsi/NearDrop/tree/text-and-links)
+
+#### Remember devices
+
+Author: [@neorth](https://github.com/neorth)
+Source: [Repository](https://github.com/neorth/NearDrop/tree/remember-devices)
 
 ## Limitations
 

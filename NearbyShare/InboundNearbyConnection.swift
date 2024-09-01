@@ -331,10 +331,6 @@ class InboundNearbyConnection: NearbyConnection {
 			bytesPayloadMeta = frame.v1.introduction.textMetadata[0]
 			if case .unknown = bytesPayloadMeta!.type {
 				rejectTransfer(with: .unsupportedAttachmentType)
-			} else if Preferences.autoCopyToClipboard {
-				let metadata = TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: bytesPayloadMeta!.textTitle)
-				self.acceptTransfer()
-				self.delegate?.incomingTransferAcceptedAlert(for: metadata, from: self.remoteDeviceInfo!, connection: self)
 			} else {
 				let metadata = TransferMetadata(files: [], id: id, pinCode: pinCode, textDescription: bytesPayloadMeta!.textTitle)
 				DispatchQueue.main.async {
@@ -346,9 +342,17 @@ class InboundNearbyConnection: NearbyConnection {
 		}
 	}
 	
-	func submitUserConsent(accepted:Bool) {
+	func submitUserConsent(accepted:Bool, rememberDevice:Bool) {
 		DispatchQueue.global(qos: .utility).async {
 			if accepted {
+				if rememberDevice, let deviceName = self.remoteDeviceInfo?.name {
+					if !Preferences.rememberedDevices.contains(deviceName) {
+						Preferences.rememberedDevices.append(deviceName)
+						DispatchQueue.main.async {
+							self.delegate?.updateMenu()
+						}
+					}
+				}
 				self.acceptTransfer()
 			} else {
 				self.rejectTransfer()
@@ -413,5 +417,5 @@ class InboundNearbyConnection: NearbyConnection {
 protocol InboundNearbyConnectionDelegate {
 	func obtainUserConsent(for transfer:TransferMetadata, from device:RemoteDeviceInfo, connection:InboundNearbyConnection)
 	func connectionWasTerminated(connection:InboundNearbyConnection, error:Error?)
-	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo, connection: InboundNearbyConnection)
+	func updateMenu()
 }
