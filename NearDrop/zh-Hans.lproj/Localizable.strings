@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ 正向你发送 %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "加密出错";
+"TransferError.Crypto" = "加密出错";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "通信出错";
+"TransferError.Protocol" = "通信出错";
 
 /* No comment provided by engineer. */
-"NFiles" = "%d files";
+"NFiles" = "%d个文件";
+
+"TransferAccepted" = "您收到来自 %2$@ 的 %1$@";
+
+"TransferAccepted.Files" = "文件已保存到下载文件夹。";
+
+"TransferAccepted.Texts" = "文本内容%@。";
+
+"TransferAccepted.Texts.Copy" = "已复制到剪贴板";
+
+"TransferAccepted.Texts.Open" = "已在默认程序中打开";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop 需显示是否接收文件传输的通知。请在 系统设置 中允许通知。";

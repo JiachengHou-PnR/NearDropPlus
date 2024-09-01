@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Acceptar";
 
 /* No comment provided by engineer. */
@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ te quiere mandar %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = " Error de encriptación";
+"TransferError.Crypto" = " Error de encriptación";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Error de comunicación";
+"TransferError.Protocol" = "Error de comunicación";
 
 /* No comment provided by engineer. */
-//"NFiles" = "%d files";
+"NFiles" = "%d files";
+
+"TransferAccepted" = "Has recibido %1$@ de %2$@";
+
+"TransferAccepted.Files" = "Archivos guardados en la carpeta de Descargas.";
+
+"TransferAccepted.Texts" = "Los textos han sido %@.";
+
+"TransferAccepted.Texts.Copy" = "copiados al portapapeles";
+
+"TransferAccepted.Texts.Open" = "abiertos en la aplicación predeterminada";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop necesita poder mostrar notificaciones para las transferencias de archivos entrantes. Permite las notificaciones en la configuración del sistema.";

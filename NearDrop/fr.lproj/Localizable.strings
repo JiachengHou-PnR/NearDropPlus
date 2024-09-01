@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ vous envoie %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "Erreur de cryptage";
+"TransferError.Crypto" = "Erreur de cryptage";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Erreur de communication";
+"TransferError.Protocol" = "Erreur de communication";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d fichiers";
+
+"TransferAccepted" = "Vous avez reçu %1$@ de %2$@";
+
+"TransferAccepted.Files" = "Fichiers enregistrés dans le dossier Téléchargements.";
+
+"TransferAccepted.Texts" = "Les textes ont été %@.";
+
+"TransferAccepted.Texts.Copy" = "copiés dans le presse-papiers";
+
+"TransferAccepted.Texts.Open" = "ouverts dans l'application par défaut";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop doit pouvoir afficher des notifications pour les transferts de fichiers entrants. Veuillez autoriser les notifications dans les paramètres système.";

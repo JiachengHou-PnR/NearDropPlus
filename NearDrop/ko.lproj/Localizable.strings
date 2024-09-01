@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@에서 %2$@을(를) 공유하려고 합니다.";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "암호화 오류";
+"TransferError.Crypto" = "암호화 오류";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "통신 오류";
+"TransferError.Protocol" = "통신 오류";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d개의 파일";
+
+"TransferAccepted" = "%2$@님으로부터 %1$@를 받았습니다";
+
+"TransferAccepted.Files" = "파일이 다운로드 폴더에 저장되었습니다.";
+
+"TransferAccepted.Texts" = "텍스트가 %@.";
+
+"TransferAccepted.Texts.Copy" = "클립보드에 복사되었습니다";
+
+"TransferAccepted.Texts.Open" = "기본 애플리케이션에서 열렸습니다";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop에서 파일 수신에 대한 알림을 표시할 수 있어야 합니다. 시스템 설정에서 알림을 허용하세요.";

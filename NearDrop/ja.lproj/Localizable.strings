@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "受け入れる";
 
 /* No comment provided by engineer. */
@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@が%2$@を送信しています";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "暗号化エラー";
+"TransferError.Crypto" = "暗号化エラー";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "通信エラー";
+"TransferError.Protocol" = "通信エラー";
 
 /* No comment provided by engineer. */
 "NFiles" = "%dつのファイル";
+
+"TransferAccepted" = "%2$@ から %1$@ を受け取りました";
+
+"TransferAccepted.Files" = "ファイルはダウンロードフォルダに保存されました。";
+
+"TransferAccepted.Texts" = "テキストは%@。";
+
+"TransferAccepted.Texts.Copy" = "クリップボードに貼り付けました";
+
+"TransferAccepted.Texts.Open" = "デフォルトのアプリで開きました";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDropでファイル受信の通知を表示できる必要があります。システム設定で通知を許可してください。";

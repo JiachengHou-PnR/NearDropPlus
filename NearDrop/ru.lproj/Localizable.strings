@@ -1,6 +1,8 @@
 /* No comment provided by engineer. */
 "Accept" = "Принять";
 
+"AcceptAndRemember" = "Принять и запомнить устройство";
+
 /* No comment provided by engineer. */
 "Decline" = "Отклонить";
 
@@ -11,13 +13,23 @@
 "DeviceSendingFiles" = "%1$@ отправляет Вам %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "Ошибка шифрования";
+"TransferError.Crypto" = "Ошибка шифрования";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Ошибка протокола";
+"TransferError.Protocol" = "Ошибка протокола";
 
 /* No comment provided by engineer. */
-/*"NFiles" = "%d файлов";*/
+"NFiles" = "%d файлов";
+
+"TransferAccepted" = "Вы получили %1$@ от %2$@";
+
+"TransferAccepted.Files" = "Файлы сохранены в папке Загрузки.";
+
+"TransferAccepted.Texts" = "Тексты были %@.";
+
+"TransferAccepted.Texts.Copy" = "скопированы в буфер обмена";
+
+"TransferAccepted.Texts.Open" = "открыто в стандартном приложении";
 
 /* No comment provided by engineer. */
 "PinCode" = "PIN: %@";

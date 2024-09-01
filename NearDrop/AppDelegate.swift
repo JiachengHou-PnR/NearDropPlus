@@ -16,7 +16,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	private static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? NSLocalizedString("AboutAlert.UnknownVersion", value: "(unknown)", comment: "")
 
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
+		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
+		statusItem?.button?.toolTip = Bundle.main.infoDictionary?["CFBundleName"] as? String
+		statusItem?.behavior = .removalAllowed
+		updateMenu()
 		
+		let nc = UNUserNotificationCenter.current()
+		nc.requestAuthorization(options: [.alert, .sound]) { granted, err in
+			if !granted {
+				DispatchQueue.main.async {
+					self.showNotificationsDeniedAlert()
+				}
+			}
+		}
+		nc.delegate = self
+		let incomingTransfersCategory = UNNotificationCategory(identifier: "INCOMING_TRANSFERS", actions: [
+			UNNotificationAction(identifier: "ACCEPT", title: NSLocalizedString("Accept", comment: ""), options: UNNotificationActionOptions.authenticationRequired),
+			UNNotificationAction(identifier: "ACCEPTANDREMEMBER", title: NSLocalizedString("AcceptAndRemember", comment: ""), options: UNNotificationActionOptions.authenticationRequired),
+			UNNotificationAction(identifier: "DECLINE", title: NSLocalizedString("Decline", comment: ""))
+		], intentIdentifiers: [])
+		let errorsCategory = UNNotificationCategory(identifier: "ERRORS", actions: [], intentIdentifiers: [])
+		nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
+		NearbyConnectionManager.shared.mainAppDelegate = self
+		NearbyConnectionManager.shared.becomeVisible()
+	}
+	
+	func updateMenu() {
 		let menu = NSMenu()
 		
 		menu.addItem(withTitle: NSLocalizedString("VisibleToEveryone", value: "Visible to everyone", comment: ""), action: nil, keyEquivalent: "")
@@ -31,32 +57,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 		openLinksItem.tag = .openLinksInApp
 		
 		menu.addItem(NSMenuItem.separator())
+		if !Preferences.rememberedDevices.isEmpty {
+			menu.addItem(withTitle: NSLocalizedString("RememberedDevices", value: "Remembered devices (click to remove)", comment: ""), action: nil, keyEquivalent: "")
+		} else {
+			menu.addItem(withTitle: NSLocalizedString("NoRememberedDevices", value: "No remembered device", comment: ""), action: nil, keyEquivalent: "")
+		}
+		for deviceName in Preferences.rememberedDevices {
+			let menuItem = NSMenuItem(title: deviceName, action: #selector(removeDevice(_:)), keyEquivalent: "")
+			menuItem.target = self
+			menu.addItem(menuItem)
+		}
+		
+		menu.addItem(NSMenuItem.separator())
 		menu.addItem(withTitle: String(format: NSLocalizedString("About", value: "About NearDropPlusPlus %@", comment: ""), arguments: [AppDelegate.appVersion]), action: #selector(self.showAboutAlert), keyEquivalent: "")
 		menu.addItem(withTitle: NSLocalizedString("Quit", value: "Quit NearDropPlusPlus", comment: ""), action: #selector(NSApplication.terminate(_:)), keyEquivalent: "")
 		
-		statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-		statusItem?.button?.image = NSImage(named: "MenuBarIcon")
-		statusItem?.button?.toolTip = Bundle.main.infoDictionary?["CFBundleName"] as? String
 		statusItem?.menu = menu
-		statusItem?.behavior = .removalAllowed
-		
-		let nc = UNUserNotificationCenter.current()
-		nc.requestAuthorization(options: [.alert, .sound]) { granted, err in
-			if !granted {
-				DispatchQueue.main.async {
-					self.showNotificationsDeniedAlert()
-				}
-			}
-		}
-		nc.delegate = self
-		let incomingTransfersCategory = UNNotificationCategory(identifier: "INCOMING_TRANSFERS", actions: [
-			UNNotificationAction(identifier: "ACCEPT", title: NSLocalizedString("Accept", comment: ""), options: UNNotificationActionOptions.authenticationRequired),
-			UNNotificationAction(identifier: "DECLINE", title: NSLocalizedString("Decline", comment: ""))
-		], intentIdentifiers: [])
-		let errorsCategory = UNNotificationCategory(identifier: "ERRORS", actions: [], intentIdentifiers: [])
-		nc.setNotificationCategories([incomingTransfersCategory, errorsCategory])
-		NearbyConnectionManager.shared.mainAppDelegate = self
-		NearbyConnectionManager.shared.becomeVisible()
 	}
 	
 	func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
@@ -95,6 +111,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 			print("Unhandled toggle menu action")
 		}
 	}
+	
+	@objc func removeDevice(_ sender: NSMenuItem) {
+		if let index = Preferences.rememberedDevices.firstIndex(of: sender.title) {
+			Preferences.rememberedDevices.remove(at: index)
+			updateMenu()
+		}
+	}
 
 	
 	func showNotificationsDeniedAlert() {
@@ -114,34 +137,41 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 	
 	func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 		let transferID = response.notification.request.content.userInfo["transferID"]! as! String
-        NearbyConnectionManager.shared.submitUserConsent(transferID: transferID, accept: response.actionIdentifier == "ACCEPT")
-		if response.actionIdentifier != "ACCEPT" {
+		NearbyConnectionManager.shared.submitUserConsent(transferID: transferID,
+																										 accept: response.actionIdentifier == "ACCEPT" || response.actionIdentifier == "ACCEPTANDREMEMBER",
+																										 rememberDevice: response.actionIdentifier == "ACCEPTANDREMEMBER")
+		if (response.actionIdentifier != "ACCEPT" && response.actionIdentifier != "ACCEPTANDREMEMBER") {
 			activeIncomingTransfers.removeValue(forKey: transferID)
 		}
 		completionHandler()
 	}
 	
 	func obtainUserConsent(for transfer: TransferMetadata, from device: RemoteDeviceInfo) {
-		let fileStr:String
-		if let textTitle = transfer.textDescription {
-			fileStr = textTitle
-		} else if transfer.files.count == 1 {
-			fileStr = transfer.files[0].name
+		if Preferences.rememberedDevices.contains(device.name) ||
+				(Preferences.autoCopyToClipboard && transfer.textDescription != nil) {
+			NearbyConnectionManager.shared.submitUserConsent(transferID: transfer.id, accept: true, rememberDevice: false)
 		} else {
-			fileStr = String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
+			let fileStr:String
+			if let textTitle = transfer.textDescription {
+				fileStr = textTitle
+			} else if transfer.files.count == 1 {
+				fileStr = transfer.files[0].name
+			} else {
+				fileStr = NSString.localizedUserNotificationString(forKey: "NFiles", arguments: [transfer.files.count])
+			}
+			let notificationContent = UNMutableNotificationContent()
+			notificationContent.title = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "NearDropPlusPlus"
+			notificationContent.subtitle = NSString.localizedUserNotificationString(forKey: "PinCode", arguments: [transfer.pinCode!])
+			notificationContent.body = NSString.localizedUserNotificationString(forKey: "DeviceSendingFiles", arguments: [device.name, fileStr])
+			notificationContent.sound = .default
+			notificationContent.categoryIdentifier = "INCOMING_TRANSFERS"
+			notificationContent.userInfo = ["transferID": transfer.id]
+			if #available(macOS 11.0, *) {
+				NDNotificationCenterHackery.removeDefaultAction(notificationContent)
+			}
+			let notificationReq = UNNotificationRequest(identifier: "transfer_"+transfer.id, content: notificationContent, trigger: nil)
+			UNUserNotificationCenter.current().add(notificationReq)
 		}
-		let notificationContent = UNMutableNotificationContent()
-		notificationContent.title = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "NearDropPlusPlus"
-		notificationContent.subtitle = String(format:NSLocalizedString("PinCode", value: "PIN: %@", comment: ""), arguments: [transfer.pinCode!])
-		notificationContent.body = String(format: NSLocalizedString("DeviceSendingFiles", value: "%1$@ is sending you %2$@", comment: ""), arguments: [device.name, fileStr])
-		notificationContent.sound = .default
-		notificationContent.categoryIdentifier = "INCOMING_TRANSFERS"
-		notificationContent.userInfo = ["transferID": transfer.id]
-		if #available(macOS 11.0, *) {
-			NDNotificationCenterHackery.removeDefaultAction(notificationContent)
-		}
-		let notificationReq = UNNotificationRequest(identifier: "transfer_"+transfer.id, content: notificationContent, trigger: nil)
-		UNUserNotificationCenter.current().add(notificationReq)
 		self.activeIncomingTransfers[transfer.id] = TransferInfo(device: device, transfer: transfer)
 	}
 	
@@ -153,13 +183,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 			if let ne = (error as? NearbyError) {
 				switch ne {
 				case .inputOutput:
-					notificationContent.body = "I/O Error";
+					notificationContent.body = NSString.localizedUserNotificationString(forKey: "TransferError.IO", arguments: [])
 				case .protocolError(_):
-					notificationContent.body = NSLocalizedString("Error.Protocol", value: "Communication error", comment: "")
+					notificationContent.body = NSString.localizedUserNotificationString(forKey: "TransferError.Protocol", arguments: [])
 				case .requiredFieldMissing:
-					notificationContent.body = NSLocalizedString("Error.Protocol", value: "Communication error", comment: "")
+					notificationContent.body = NSString.localizedUserNotificationString(forKey: "TransferError.Protocol", arguments: [])
 				case .ukey2:
-					notificationContent.body = NSLocalizedString("Error.Crypto", value: "Encryption error", comment: "")
+					notificationContent.body = NSString.localizedUserNotificationString(forKey: "TransferError.Crypto", arguments: [])
 				case .canceled(reason: _):
 					break; // can't happen for incoming transfers
 				}
@@ -168,34 +198,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 			}
 			notificationContent.categoryIdentifier = "ERRORS"
 			UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "transferError_"+id, content: notificationContent, trigger: nil))
+		} else {
+			let fileStr:String
+			if transfer.transfer.textDescription != nil {
+				fileStr = NSString.localizedUserNotificationString(forKey: "Texts", arguments: [])
+			} else if transfer.transfer.files.count == 1 {
+				fileStr = transfer.transfer.files[0].name
+			} else {
+				fileStr = NSString.localizedUserNotificationString(forKey: "NFiles", arguments: [transfer.transfer.files.count])
+			}
+			let notificationContent = UNMutableNotificationContent()
+			notificationContent.title = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "NearDropPlusPlus"
+			notificationContent.subtitle = NSString.localizedUserNotificationString(forKey: "TransferAccepted", arguments: [fileStr, transfer.device.name])
+			if transfer.transfer.textDescription == nil {
+				notificationContent.body = NSString.localizedUserNotificationString(forKey: "TransferAccepted.Files", arguments: [])
+			} else {
+				notificationContent.body = NSString.localizedUserNotificationString(forKey: "TransferAccepted.Texts", arguments: [(Preferences.autoCopyToClipboard || !Preferences.openLinksInApp) ?
+								NSString.localizedUserNotificationString(forKey: "TransferAccepted.Texts.Copy", arguments: []) :
+								NSString.localizedUserNotificationString(forKey: "TransferAccepted.Texts.Open", arguments: [])])
+			}
+			notificationContent.categoryIdentifier = "INCOMING_TRANSFERS_COMPLETED"
+			notificationContent.userInfo = ["transferID": transfer.transfer.id]
+			UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "transferCompleted_"+transfer.transfer.id, content: notificationContent, trigger: nil))
 		}
 		UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["transfer_"+id])
 		self.activeIncomingTransfers.removeValue(forKey: id)
-	}
-	
-	func incomingTransferAcceptedAlert(for transfer: TransferMetadata, from device: RemoteDeviceInfo) {
-		let fileStr:String
-		if let textTitle = transfer.textDescription {
-			fileStr = textTitle
-		} else if transfer.files.count == 1 {
-			fileStr = transfer.files[0].name
-		} else {
-			fileStr = String.localizedStringWithFormat(NSLocalizedString("NFiles", value: "%d files", comment: ""), transfer.files.count)
-		}
-		
-		let notificationContent = UNMutableNotificationContent()
-		notificationContent.title = Bundle.main.infoDictionary?["CFBundleName"] as? String ?? "NearDropPlusPlus"
-		notificationContent.subtitle = "Incoming Transfer Accepted"
-		if transfer.textDescription == nil {
-			notificationContent.body = fileStr + " from " + device.name + " saved in Downloads folder."
-		} else {
-			notificationContent.body = "Content from " + device.name
-			notificationContent.body += Preferences.openLinksInApp ? " opened in default browser." : " pasted in clipboard."
-		}
-		notificationContent.categoryIdentifier = "INCOMING_TRANSFERS"
-		notificationContent.userInfo = ["transferID": transfer.id]
-		notificationContent.categoryIdentifier = "ERRORS"
-		UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: "transferAccepted_"+transfer.id, content: notificationContent, trigger: nil))
 	}
 }
 

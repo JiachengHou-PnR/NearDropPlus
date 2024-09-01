@@ -1,4 +1,4 @@
-﻿/* No comment provided by engineer. */
+/* No comment provided by engineer. */
 "Accept" = "Прийняти";
 
 /* No comment provided by engineer. */
@@ -11,13 +11,23 @@
 "DeviceSendingFiles" = "%1$@ відправляє Вам %2$@";
 
 /* No comment provided by engineer. */
-"Error.Crypto" = "Помилка шифрування";
+"TransferError.Crypto" = "Помилка шифрування";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Помилка протоколу";
+"TransferError.Protocol" = "Помилка протоколу";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d files";
+
+"TransferAccepted" = "Ви отримали %1$@ від %2$@";
+
+"TransferAccepted.Files" = "Файли збережено в папці Завантаження.";
+
+"TransferAccepted.Texts" = "Тексти були %@.";
+
+"TransferAccepted.Texts.Copy" = "скопійовані в буфер обміну";
+
+"TransferAccepted.Texts.Open" = "відкрито в стандартному додатку";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop потрібна можливість показувати сповіщення про вхідні файли. Будь ласка, дозвольте сповіщення у Системних налаштуваннях.";

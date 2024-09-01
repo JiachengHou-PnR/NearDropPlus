@@ -1,6 +1,8 @@
 /* No comment provided by engineer. */
 "Accept" = "Accept";
 
+"AcceptAndRemember" = "Accept and remember device";
+
 /* No comment provided by engineer. */
 "Decline" = "Decline";
 
@@ -10,14 +12,28 @@
 /* No comment provided by engineer. */
 "DeviceSendingFiles" = "%1$@ is sending you %2$@";
 
-/* No comment provided by engineer. */
-"Error.Crypto" = "Encryption error";
+"TransferError.IO" = "I/O error";
 
 /* No comment provided by engineer. */
-"Error.Protocol" = "Communication error";
+"TransferError.Crypto" = "Encryption error";
+
+/* No comment provided by engineer. */
+"TransferError.Protocol" = "Communication error";
 
 /* No comment provided by engineer. */
 "NFiles" = "%d files";
+
+"Texts" = "texts";
+
+"TransferAccepted" = "You received %1$@ from %2$@";
+
+"TransferAccepted.Files" = "Files saved in Downloads folder.";
+
+"TransferAccepted.Texts" = "Texts have been %@.";
+
+"TransferAccepted.Texts.Copy" = "copied to clipboard";
+
+"TransferAccepted.Texts.Open" = "opened in default application";
 
 /* No comment provided by engineer. */
 "NotificationsDenied.Message" = "NearDrop needs to be able to display notifications for incoming file transfers. Please allow notifications in System Settings.";
@@ -40,7 +56,7 @@
 /* No comment provided by engineer. */
 "VisibleToEveryone" = "Visible to everyone";
 
-"About" = "About NearDropPlusPlsu %@";
+"About" = "About NearDropPlusPlus %@";
 
 "AboutAlert.Title" = "NearDropPlusPlus v%@";
 
